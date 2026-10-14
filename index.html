@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shipped Resume Parser — score your resume in seconds</title>
+  <meta name="description" content="Upload a PDF resume and get a fit score, the skills it shows and the skills it is missing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">SR</span>
+      <span class="brand-name">Shipped Resume Parser</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#how">How it works</a>
+      <a class="btn btn-ghost" href="#upload">Score my resume</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero + uploader -->
+    <section class="hero" id="upload">
+      <p class="eyebrow">Runs entirely in your browser</p>
+      <h1>Find out how your resume <span class="accent">scores</span> before a recruiter does.</h1>
+      <p class="lede">
+        Drop in a PDF resume. You get a fit score for a frontend role, the skills the
+        parser found, and the ones it could not find anywhere in the document.
+      </p>
+
+      <form id="upload-form" class="uploader" novalidate>
+        <label class="dropzone" for="file-input" id="dropzone">
+          <input type="file" id="file-input" name="resume" accept="application/pdf,.pdf" />
+          <span class="dropzone-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 16V4" /><path d="m7 9 5-5 5 5" /><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+            </svg>
+          </span>
+          <span class="dropzone-title">Drop your PDF here, or click to browse</span>
+          <span class="dropzone-hint" id="dropzone-hint">PDF only · nothing is uploaded anywhere</span>
+        </label>
+
+        <div class="uploader-actions">
+          <button type="button" class="btn btn-ghost" id="sample-btn">Try a sample result</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Results -->
+    <section class="results" id="results" hidden aria-live="polite">
+      <div class="result-head">
+        <div class="score-ring" id="score-ring">
+          <svg viewBox="0 0 120 120" width="140" height="140" aria-hidden="true">
+            <circle class="ring-track" cx="60" cy="60" r="52" />
+            <circle class="ring-value" id="ring-value" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="score-ring-label">
+            <span class="score-number" id="score-number">0</span>
+            <span class="score-out-of">/ 100</span>
+          </div>
+        </div>
+
+        <div class="result-summary">
+          <p class="eyebrow" id="result-source">Resume</p>
+          <h2 id="grade">—</h2>
+          <p id="summary">—</p>
+          <p class="mode-note" id="mode-note" hidden></p>
+        </div>
+      </div>
+
+      <div class="panels">
+        <article class="panel">
+          <header class="panel-head">
+            <h3>Skills present</h3>
+            <span class="count" id="present-count">0</span>
+          </header>
+          <ul class="chips" id="present-list"></ul>
+        </article>
+
+        <article class="panel panel-missing">
+          <header class="panel-head">
+            <h3>Skills missing</h3>
+            <span class="count" id="missing-count">0</span>
+          </header>
+          <ul class="chips" id="missing-list"></ul>
+        </article>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" class="btn btn-primary" id="again-btn">Score another resume</button>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>
+          <span class="step-num">1</span>
+          <h3>Read the PDF in the browser</h3>
+          <p>The file never leaves your machine. <code>pdf.js</code> pulls the text layer out of the document locally.</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <h3>Match it against a skill set</h3>
+          <p>Each entry in the catalog — HTML, React, testing, accessibility, and so on — has a pattern that is tested against the resume text.</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <h3>Score the overlap</h3>
+          <p>The score is the share of the target role's skills the parser found. Everything it looked for and could not find is listed as missing.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Shipped Resume Parser — a mock landing page. No resume is stored or sent anywhere.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
